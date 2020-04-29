@@ -2,60 +2,48 @@
 const buttons = Array.from(document.querySelectorAll("#choice"));
 let computer = document.querySelector(".computer");
 const outputMessage = document.querySelector(".output-message");
+let playerPick;
+let computerPick;
 
 //lookup object :
-const movesObj = {
+const gameCombinations = {
     rock: "scissors",
     paper: "rock",
     scissors: "paper"
 };
 
-const moves = Object.keys(movesObj);
-const waitTime = 50;
+const moves = Object.keys(gameCombinations);
 
-const calculateWinner = () => {
-    if (moves[playerPick] === computerPick) {
-        outputMessage.innerHTML = "Player wins";
+const calculateWinner = (playerPick, computerPick) => {
+    if (gameCombinations[playerPick] === computerPick) {
+        outputMessage.innerHTML = "Player wins!";
     } else if (playerPick === computerPick) {
         outputMessage.innerHTML = "Draw!"
     } else {
-        outputMessage.innerHTML = "Computer Wins"
+        outputMessage.innerHTML = "Computer Wins!"
     }
-
+    console.log(gameCombinations[playerPick])
 }
 
 const computerMove = () => {
-    //select a random number based on the length of moves arrays 
-    // const randomNumber = Math.floor(Math.random() * moves.length);
     const computerPick = moves[Math.floor(Math.random() * moves.length)];
     console.log(computerPick)//rock paper scissor
-    computer.src = `${computerPick}`; // add images here
+    // add images here
+    computer.innerHTML = computerPick;
+    calculateWinner(playerPick, computerPick);
 };
 
 const playerMove = () => {
     // return playerPick;
     buttons.forEach(button => {
         button.addEventListener("click", event = () => {
-            const playerPick = button.dataset.type;
-            console.log(playerPick)
-            computerMove();
+            playerPick = button.dataset.type;
+            console.log(playerPick, "iam the player pick")
+            computerMove(playerPick);
         })
     });
-    calculateWinner();
 }
 playerMove();
-
-
-
-
-// if ((computerMove === moves[0] && playerMove === moves[1]) || (computerMove === moves[2] && playerMove === moves[0]) || (computerMove === moves[1] && playerMove === moves[2])) {
-//     return "player two won"
-    // } else if {
-    //     return "player one won"
-    // }
-    //     if (computerMove === playerMove) {
-    //         return "It's a draw";
-    //     } else { return "it s a draw" }
 
 
 
