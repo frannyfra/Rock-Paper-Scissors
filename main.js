@@ -4,15 +4,17 @@ let computer = document.querySelector(".computer");
 const outputMessage = document.querySelector(".output-message");
 let playerPick;
 let computerPick;
-
+const waitingTime = 50;
+const scrumbleComputerPick = 25;
 //lookup object :
 const gameCombinations = {
     rock: "scissors",
     paper: "rock",
     scissors: "paper"
 };
-
 const moves = Object.keys(gameCombinations);
+
+const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
 const calculateWinner = (playerPick, computerPick) => {
     if (gameCombinations[playerPick] === computerPick) {
@@ -22,19 +24,19 @@ const calculateWinner = (playerPick, computerPick) => {
     } else {
         outputMessage.innerHTML = "Computer Wins!"
     }
-    console.log(gameCombinations[playerPick])
 }
 
-const computerMove = () => {
-    const computerPick = moves[Math.floor(Math.random() * moves.length)];
-    console.log(computerPick)//rock paper scissor
-    // add images here
-    computer.innerHTML = computerPick;
+const computerMove = async playerPick => {
+    let computerPick = null;
+    for (let i = 0; i < scrumbleComputerPick; i++) {
+        await wait(waitingTime);
+        computerPick = moves[Math.floor(Math.random() * moves.length)];
+        computer.innerHTML = computerPick;
+    }
     calculateWinner(playerPick, computerPick);
 };
 
 const playerMove = () => {
-    // return playerPick;
     buttons.forEach(button => {
         button.addEventListener("click", event = () => {
             playerPick = button.dataset.type;
@@ -44,21 +46,3 @@ const playerMove = () => {
     });
 }
 playerMove();
-
-
-
-
-
-
-//1 rock
-//2 paper
-//3 scissor
-
-// 1 wins over 3
-// 2 wins over 1
-// 3 wins over 2
-
-// 1 wins over 3 and loose over 2
-// 2 wins over 1 and loose over 3
-
-

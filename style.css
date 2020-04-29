@@ -31,14 +31,15 @@ body {
 }
 
 .computer {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: 160px;
+  height: 150px;
+  /* border-radius: 50%; */
   border: 8px solid grey;
   background-color: black;
   color: white;
-  font-size: 1rem;
+  font-size: 1.7rem;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .rock,
